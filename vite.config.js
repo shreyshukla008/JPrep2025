@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from 'tailwindcss'
 
-// https://vite.dev/config/
 export default defineConfig({
+  base: './',  // <-- Added this line to fix relative asset paths
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   darkMode: 'class', // enables dark mode via 'dark' class
   theme: {
@@ -37,11 +37,8 @@ export default defineConfig({
       xl: '1280px',
       '2xl': '1536px',
     },
-
   },
   plugins: [
-    react(),
-    tailwindcss()
+    react()
   ],
-  
 })
