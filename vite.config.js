@@ -3,9 +3,13 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from 'tailwindcss'
 
 export default defineConfig({
+<<<<<<< HEAD
   base: './',  // <-- Added this line to fix relative asset paths
+=======
+  base: './',  
+>>>>>>> c277ba0c08c20023c938ce9064162a7ccf045367
   content: ["./index.html", "./src/**/*.{js,jsx}"],
-  darkMode: 'class', // enables dark mode via 'dark' class
+  darkMode: 'class', 
   theme: {
     extend: {
       colors: {
@@ -39,6 +43,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    react()
+    react(),
+    tailwindcss(),
   ],
 })
