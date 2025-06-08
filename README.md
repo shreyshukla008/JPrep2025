@@ -4,7 +4,7 @@
 
 ---
 
-## 📸 Screenshots (Replace with real images later)
+## 📸 Screenshots
 
 ### Login Page  
 ![Login](https://via.placeholder.com/800x400.png?text=Login+Page)
@@ -96,7 +96,22 @@
 
 - All PDFs stored in a structured Google Drive account (service account)
 - Folder hierarchy:
+### 🔧 Backend (`/backend`)
+- **controllers/** – Contains business logic (e.g., createSubject, uploadPaper, login handlers)
+- **middlewares/** – Middleware for authentication and role-based access (admin, teacher, guest, etc.)
+- **models/** – Mongoose schemas (User, Subject, QuestionPaper, Solution, etc.)
+- **routes/** – Express route handlers for authentication, subject management, uploads, etc.
+- **utils/** – Helper functions for Google Drive integration, OCR verification (Tesseract), and file utilities
+- **server.js** – Main Express app setup and middleware initialization
 
+### 🎨 Frontend (`/frontend`)
+- **public/** – Static assets, favicon, `index.html`
+- **src/**
+  - **components/** – Reusable UI components (e.g., Navbar, UploadForm, PaperCard, StatusTag)
+  - **pages/** – View components mapped to routes (e.g., Dashboard, Login, UploadPage, AdminPanel)
+  - **redux/** – Global state management using Redux (store setup, user/course/UI slices)
+  - **App.js** – Main application wrapper with routing logic
+  - **index.js** – React app entry point
 
 ---
 
@@ -107,7 +122,6 @@
 - 📥 Bulk uploads by teachers/admins
 - 🧑‍🏫 Teacher-specific dashboards
 - 🧹 Auto-cleanup of expired content (3-year policy)
-- 🔎 Smarter search and subject suggestion engine
 
 ---
 
