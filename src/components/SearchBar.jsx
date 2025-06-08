@@ -7,7 +7,7 @@ const SearchBar = ({ search, setSearch, placeholder }) => {
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-4 py-2 rounded-md shadow border border-gray-300 "
+      className="w-full px-4 py-4 rounded-md shadow border border-gray-300 "
     />
   );
 };

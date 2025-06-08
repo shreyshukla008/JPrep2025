@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
+import { PiSignInBold } from "react-icons/pi";
 
-const Navbar = ({ userId, onLogout }) => {
+const Navbar = ({ userId, onLogout, onLogin }) => {
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const tabs = [
-    { label: "Home", path: `/user/${userId}/home`, 
-    svg: (<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-school w-[3rem]  group-hover:scale-120 duration-150 ease-in" 
-      ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>) 
-    },
+    // { label: "Home", path: `/user/${userId}/home`, 
+    // svg: (<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-school w-[3rem]  group-hover:scale-120 duration-150 ease-in" 
+    //   ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>) 
+    // },
     { label: "Courses", path: `/user/${userId}/courses`,
     svg:(<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-book-2 w-[3rem] group-hover:scale-120 duration-150 ease-in "><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" /><path d="M19 16h-12a2 2 0 0 0 -2 2" /><path d="M9 8h6" /></svg>)
     },
@@ -19,14 +23,46 @@ const Navbar = ({ userId, onLogout }) => {
     // { label: "Admin", path: `/user/${userId}/admin` },
   ];
 
+  if (user?.role === "Admin" || user?.role === "Owner") {
+    tabs.push({
+      label: "Admin",
+      path: `/user/${userId}/admin`,
+      svg: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          className="w-[3rem] group-hover:scale-120 duration-150 ease-in">
+          <path d="M10 20v-6a2 2 0 0 1 4 0v6" />
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 3h-8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z" />
+        </svg>
+      )
+    });
+  }
+
   
 
   return (
-    <nav className="fixed h-[6rem] bottom-0 sm:top-0 left-0 right-0 flex justify-between items-end flex-wrap px-1 sm:px-6 py-2 sm:py-6 shadow-md bg-slate-50 dark:bg-dark-card">
+    <nav className="fixed h-[6rem] bottom-0 sm:top-1 left-0 right-0 flex justify-between items-end flex-wrap px-1 sm:px-6 py-2 sm:py-6 shadow-[0px_-4px_10px_rgba(0,0,0,0.3)]  sm:shadow-md bg-slate-50 dark:bg-dark-card rounded-md">
 
       <div className="flex justify-between ">
+
+          <NavLink
+                to="/user/${userId}/home"
+                className={({ isActive }) =>
+                  ` duration-200 cursor-pointer flex flex-col items-center justify-center hover:scale-105 transition ${
+                    isActive
+                    ? "drop-shadow-2xl drop-shadow-blue-300  "
+                    : "text-slate-900"
+                  }`
+                }
+                >
+                  <h1 className="text-2xl sm:text-3xl font-extrabold m-2 sm:mb-0 flex items-end"> <img className="w-[2.5rem] sm:w-[3.5rem] sm:-mt-8" src="/jprepLogo.png" alt="" /></h1>
+                
+                
+              </NavLink>
         
-        <h1 className="text-2xl sm:text-3xl font-extrabold m-2 sm:mb-0 flex items-end"> <img className="w-[3rem] sm:w-[4rem] sm:-mt-8" src="/jprepLogo.png" alt="" /></h1>
+        {/* <h1 className="text-2xl sm:text-3xl font-extrabold m-2 sm:mb-0 flex items-end"> <img className="w-[3rem] sm:w-[4rem] sm:-mt-8" src="/jprepLogo.png" alt="" /></h1> */}
 
       </div>
 
@@ -34,12 +70,12 @@ const Navbar = ({ userId, onLogout }) => {
         <div className="flex flex-wrap  justify-evenly  max-w-[1280px] items-center  font-medium sm:text-lg">
           {tabs.map((tab) => (
             <div className="flex flex-col group justify-center items-center" key={tab.path}> 
-                <NavLink
+              <NavLink
                 to={tab.path}
                 className={({ isActive }) =>
                   ` duration-150 ease-in hover:underline cursor-pointer flex flex-col items-center justify-center  ${
                     isActive
-                    ? "font-bold text-blue-600 underline"
+                    ? "font-bold text-blue-600 underline drop-shadow-2xl drop-shadow-blue-200"
                     : "text-slate-900"
                   }`
                 }
@@ -56,16 +92,30 @@ const Navbar = ({ userId, onLogout }) => {
       </div>
 
       </div>
+          
+      <div>
+          {
+          JSON.parse(localStorage.getItem("user"))?.role !== "Guest" ?
+          (
           <div className="flex w-[3rem] flex-wrap group items-center justify-center mb-2 font-medium sm:text-lg cursor-pointer">
-
-          <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 22 22"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-logout-2 w-[1.5rem] text-red-500 group-hover:font-bold group-hover:scale-120  hover:text-red-600 duration-150 ease-in-out"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" /><path d="M15 12h-12l3 -3" /><path d="M6 15l-3 -3" /></svg>
+            <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 22 22"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-logout-2 w-[1.5rem] text-red-500 group-hover:font-bold group-hover:scale-120  hover:text-red-600 duration-150 ease-in-out"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" /><path d="M15 12h-12l3 -3" /><path d="M6 15l-3 -3" /></svg>
           
           <button
             onClick={onLogout}
-            className="font-medium text-red-500 group-hover:text-red-600 group-hover:underline group-hover:font-bold transition"
+            className="font-medium text-red-500 group-hover:text-red-600 group-hover:underline group-hover:font-bold transition cursor-pointer"
           >
             Logout
           </button>
+            </div>
+          ):
+          (
+          <button className="flex w-[3rem] flex-wrap group items-center justify-center mb-2 font-medium sm:text-lg cursor-pointer hover:scale-105"
+          onClick={onLogin}
+          >
+            <PiSignInBold className="text-3xl text-green-500 group-hover:text-green-400" />
+            <p className="font-medium group-hover:underline text-green-500 group-hover:text-green-400 transition"> Login </p>
+          </button>)
+          }
           
         </div>
 

@@ -24,7 +24,7 @@ const OCRProcessingStep2 = ({ data, onNext, onBack, fieldStatus }) => {
         {fieldStatus.isValid === -1 ? 
         (<p className="mx-auto font-semibold text-slate-500 my-2">Fetching Information........</p>):
         (<button onClick={onNext} className="bg-green-600 text-white mx-4 px-4 py-2 font-semibold rounded">
-          Proceed to Final Step
+          View Status
         </button>)}
       </div>
     </div>

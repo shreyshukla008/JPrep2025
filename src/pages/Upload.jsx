@@ -19,7 +19,7 @@ const Upload = () => {
   const prevStep = () => setStep((prev) => prev - 1);
 
   return (
-    <div className=" p-1 max-w-3xl mx-auto">
+    <div className=" p-4 sm:pt-6 sm:mt-6 max-w-3xl mx-auto">
       <div className="mt-4 mb-6 text-lg font-semibold">
         {
           step === 1 && <div> Upload Document - Step {step}/3 </div>

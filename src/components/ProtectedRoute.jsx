@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
     }
   }, [navigate]);
 
-  if (isAuthenticated === null) return null; // Optional: show a loader
+  if (isAuthenticated === null) return null;
 
   return children;
 };

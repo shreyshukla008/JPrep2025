@@ -45,6 +45,13 @@ const CourseDetails = ({ course }) => {
 
   const handleAddStarred = async () => {
     if (!userId) return alert("User not logged in");
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const isGuest = user?.role === "Guest";
+    
+
+    if(isGuest) return;
+
     setLoading(true);
     try {
       await dispatch(addStarred({ subjectId: course._id, userId }));
@@ -107,19 +114,25 @@ const CourseDetails = ({ course }) => {
         <button
           onClick={isStarred ? handleRemoveStarred : handleAddStarred}
           disabled={loading}
-          className={`px-3 py-1 rounded font-semibold ${
-            isStarred ? 'bg-yellow-400 text-black' : 'bg-gray-200 text-gray-700'
-          }`}
+          className={`px-3 py-1 rounded font-semibold shadow-sm ${
+            JSON.parse(localStorage.getItem("user"))?.role === "Guest" ? ("bg-slate-100 text-black"):
+            (isStarred ? 'bg-yellow-400 text-black' : 'bg-gray-200 text-gray-700')}`
+          }
         >
-          {isStarred ? 
-          (<div className="flex gap-2"> 
+          {JSON.parse(localStorage.getItem("user"))?.role === "Guest" ?
+          (<div className="flex flex-col cursor-not-allowed"> 
+              <p>☆</p> 
+              <p className="text-red-600 text-sm sm:text-md">*Login </p>
+            </div>):
+          (isStarred ? 
+          (<div className="flex gap-2 cursor-pointer"> 
               <p>★</p> 
               <p className="hidden sm:block"> Starred </p>
             </div>) : 
-          (<div className="flex gap-2">  
+          (<div className="flex gap-2 cursor-pointer">  
             <p> ☆ </p> 
             <p className="hidden sm:block"> Star this </p>
-            </div>)
+            </div>))
           }
         </button>
       </div>

@@ -10,9 +10,19 @@ export const fetchStarred = createAsyncThunk(
   "starred/fetchStarred",
   async (userId, thunkAPI) => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/starred/user/${userId}`);
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      const res = await axios.get(`${BASE_URL}/api/starred/user/${userId}`, config);
       return res.data.starredSubjects;
-    } catch (error) {
+    }catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || "Error fetching starred");
     }
   }
@@ -22,7 +32,21 @@ export const addStarred = createAsyncThunk(
   "starred/addStarred",
   async ({ subjectId, userId }, thunkAPI) => {
     try {
-      await axios.post(`${BASE_URL}/api/starred/add`, { subjectId, userId });
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user?.token;
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,  // Add token here
+            "Content-Type": "application/json",
+          },
+        };
+
+        await axios.post(
+          `${BASE_URL}/api/starred/add`,
+          { subjectId, userId },
+          config
+        );
       return subjectId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || "Error adding starred");
@@ -34,9 +58,19 @@ export const removeStarred = createAsyncThunk(
   "starred/removeStarred",
   async ({ subjectId, userId }, thunkAPI) => {
     try {
-      await axios.post(`${BASE_URL}/api/starred/remove`, { subjectId, userId });
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      await axios.post(`${BASE_URL}/api/starred/remove`, { subjectId, userId }, config);
       return subjectId;
-    } catch (error) {
+    }  catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || "Error removing starred");
     }
   }

@@ -11,6 +11,9 @@ import CoursePage from "./CoursePage";
 import Upload from "./Upload";
 import Starred from "./Starred";
 import AdminPanel from "./AdminPanel";
+import ReviewUnverified from "./ReviewUnverified";
+import ReviewCourses from "./ReviewCourses";
+import DeletePaper from "./DeletePaper";
 
 const Dashboard = () => {
   const { id } = useParams();
@@ -41,22 +44,70 @@ const Dashboard = () => {
     window.location.href = "/login";
   };
 
+  const handleLogin = () => {
+    window.location.href = "/login";
+  };
+
   return (
     <div className="h-screen bg-light-bg text-light-text">
 
       <div>
-        <Navbar userId={id} onLogout={handleLogout} />
+        <Navbar userId={id} onLogout={handleLogout} onLogin={handleLogin} />
       </div>
       
       <div>
         <main className="sm:pt-[6rem] pb-[8rem]">
           <Routes>
             <Route path="home" element={<Home />} />
+
             <Route path="courses" element={<CoursePage />} />
+
             <Route path="upload" element={<Upload />} />
+
             <Route path="starred" element={<Starred />} />
-            <Route path="admin" element={<AdminPanel />} />
+
+            <Route path="admin" element={user?.role === "Admin" || user?.role === "Owner" ? 
+              (<AdminPanel />) : 
+              (<Navigate to={`/user/${id}/home`} replace />)
+            }/>
+
+             <Route
+              path="admin/review-unverified"
+              element={
+                user?.role === "Admin" || user?.role === "Owner" ? (
+                  <ReviewUnverified />
+                ) : (
+                  <Navigate to={`/user/${id}/home`} replace />
+                )
+              }
+            />
+
+            
+            <Route
+              path="admin/review-courses"
+              element={
+                user?.role === "Admin" || user?.role === "Owner" ? (
+                  <ReviewCourses />
+                ) : (
+                  <Navigate to={`/user/${id}/home`} replace />
+                )
+              }
+            />
+
+            <Route
+              path="admin/delete-paper"
+              element={
+                user?.role === "Admin" || user?.role === "Owner" ? (
+                  <DeletePaper />
+                ) : (
+                  <Navigate to={`/user/${id}/home`} replace />
+                )
+              }
+            />
+
             <Route path="*" element={<Navigate to={`/user/${id}/home`} />} />
+
+
           </Routes>
         </main>
       </div>

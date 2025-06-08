@@ -58,7 +58,7 @@ const Starred = () => {
           >
             <button
               onClick={() => setSelectedCourse(null)}
-              className="absolute top-2 right-3 text-red-500 hover:text-red-700 text-xl"
+              className="absolute cursor-pointer top-2 right-3 text-red-500 hover:text-red-700 text-xl"
             >
               ❌
             </button>
@@ -70,14 +70,18 @@ const Starred = () => {
     : null;
 
   return (
-    <div className="p-4">
+    <div className="p-4 mt-6 flex flex-col gap-4">
       <SearchBar
         search={search}
         setSearch={setSearch}
         placeholder="Search Starred Courses..."
       />
 
-      {starredLoading ? (
+      {
+        JSON.parse(localStorage.getItem("user"))?.role === "Guest" ?
+        (<p className='text-lg font-semibold text-red-600 mt-8'>*Login to Star Subjects...</p>):
+      (
+      starredLoading ? (
         <p className="text-gray-500 mt-4">Loading starred courses...</p>
       ) : filteredCourses.length === 0 ? (
         <p className="text-gray-500 mt-4">No starred courses found.</p>
@@ -87,15 +91,15 @@ const Starred = () => {
             <div
               key={course._id || course.id}
               onClick={() => setSelectedCourse(course)}
-              className="bg-white p-4 rounded shadow cursor-pointer hover:bg-gray-100"
+              className="bg-white p-4 rounded shadow cursor-pointer hover:bg-gray-100 hover:scale-103 transition"
             >
               <h3 className="text-xl font-semibold">{course.name}</h3>
               <p className="text-gray-600">Course ID: {course.code}</p>
             </div>
           ))}
         </div>
-      )}
-
+      ))
+    }
       {modal}
     </div>
   );

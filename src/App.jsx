@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
+      <div className="min-h-screen  ">
         <AppRoutes />
       </div>
     </ThemeProvider>

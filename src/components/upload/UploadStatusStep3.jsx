@@ -14,8 +14,8 @@ const UploadStatusStep3 = ({ data, onBack, fieldStatus, setStep, setFieldStatus 
 
       {
         fieldStatus.isValid === true ? 
-        (<p>Hey! {user.name} Thanks for uploading <strong>{data.course?.name}</strong> paper.</p>):
-        (<p>Oops! Something went wrong during upload. Please retry in a few seconds.</p>)
+        (<p>Hey! <strong> {user.name} </strong> Thanks for uploading <strong>{data.course?.name}</strong> paper.</p>):
+        (<p>Hey! <strong> {user.name} </strong> Your upload failed the OCR auto-verification test and has been sent for manual verification.</p>)
       } 
       
       

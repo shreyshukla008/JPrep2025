@@ -45,6 +45,10 @@ const UploadFormStep1 = ({ onNext, setUploadData, setFieldStatus }) => {
     
 
     const user = JSON.parse(localStorage.getItem("user"));
+
+    if(user?.role === "Guest") return;
+
+    const token = user?.token;
     
     if (!user || !user._id) {
       console.log("user: ", user);
@@ -80,22 +84,24 @@ const UploadFormStep1 = ({ onNext, setUploadData, setFieldStatus }) => {
       const response = await fetch(`${BASE_URL}/api/question-papers/upload`, {
         method: "POST",
         body: formData,
-        // NO Content-Type header needed; browser sets it
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await response.json();
       console.log("resPonse received:", data);
 
-      setTimeout(() => {
-        onNext();
-        setFieldStatus({
-          imageOCR : -1,
-          course : -1,
-          year : -1,
-          examination : -1,
-          isValid : -1,
-        })
-      }, 1800);
+      // setTimeout(() => {
+      //   onNext();
+      //   setFieldStatus({
+      //     imageOCR : -1,
+      //     course : -1,
+      //     year : -1,
+      //     examination : -1,
+      //     isValid : -1,
+      //   })
+      // }, 1800);
 
       if(data.validationResult){
         setFieldStatus({
@@ -221,10 +227,17 @@ const UploadFormStep1 = ({ onNext, setUploadData, setFieldStatus }) => {
 
       <button
         onClick={handleSubmit}
-        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+        className={`${JSON.parse(localStorage.getItem("user"))?.role === "Guest" ? "bg-slate-300 text-red-600 hover:bg-gray-300 cursor-not-allowed font-semibold" : "bg-green-600 hover:bg-green-700 text-white cursor-pointer"} py-2 px-4 rounded shadow-md`}
       >
-        Proceed to OCR Verification
+        {
+        JSON.parse(localStorage.getItem("user"))?.role === "Guest" ?
+        (<div>*Login To Upload</div>):
+        (<div>Proceed to OCR Verification</div>)
+        }
+        
       </button>
+
+      
 
       
   </div>

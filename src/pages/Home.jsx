@@ -4,7 +4,7 @@ const Home = () => {
   const userName = user.name.toUpperCase();
 
     return (
-      <div className=" flex flex-col  min-h-[60vh] justify-center">
+      <div className=" flex flex-col  min-h-[60vh] justify-center pt-2">
         <div className="flex flex-col items-start">
           <h2 className="text-3xl font-semibold mb-4"> Hey! <strong className="text-4xl text-blue-700/90 ">{userName}</strong> </h2>
             <h2 className="text-3xl font-semibold mb-4"> Welcome to <strong className="text-4xl text-blue-700/90 italic">J-Prep</strong> </h2>

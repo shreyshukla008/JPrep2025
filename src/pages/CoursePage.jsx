@@ -61,15 +61,15 @@ const Courses = () => {
     : null;
 
   return (
-    <div className="p-4">
+    <div className="p-4 sm:mt-4 flex flex-col gap-4">
       <SearchBar search={search} setSearch={setSearch} placeholder="Search Courses..." />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         {filteredCourses.map((course) => (
           <div
             key={course._id}
             onClick={() => setSelectedCourse(course)}
-            className="bg-white p-4 rounded shadow cursor-pointer hover:bg-gray-100"
+            className="bg-white p-4 rounded shadow cursor-pointer hover:bg-gray-100 hover:scale-103 transition"
           >
             <h3 className="text-xl font-semibold">{course.name}</h3>
             <p className="text-gray-600">Course ID: {course.code}</p>

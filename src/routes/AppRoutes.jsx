@@ -1,25 +1,52 @@
-// AppRoutes.jsx
-import { Routes, Route, Navigate } from "react-router-dom";
-//import Login from "../pages/Login";
-import GoogleLogin from "../components/GoogleLogin";
-import Dashboard from "../pages/Dashboard";
+
 import ProtectedRoute from "../components/ProtectedRoute";
+
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Landing from "../pages/Landing";
+import Dashboard from "../pages/Dashboard";
 import CourseDetails from "../pages/CourseDetails";
 
-const AppRoutes = () => {
+function RequireAuth({ children }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const location = useLocation();
+
+  if (!user) {
+    // Not logged in — redirect to login page
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Logged in — allow access
+  return children;
+}
+
+export default function AppRoutes() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<GoogleLogin />} />
-      <Route path="/user/:id/*" element={
-          //<ProtectedRoute>
-            <Dashboard />
-          //</ProtectedRoute>
+      {/* Redirect '/' based on login status */}
+      <Route
+        path="/"
+        element={
+          user ? (
+            <Navigate to={`/user/${user._id}`} replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
+
+      <Route path="/login" element={<Landing />} />
+
+      <Route
+        path="/user/:id/*"
+        element={
+          
+            <Dashboard />
+        }
+      />
+
       <Route path="/courses/:id" element={<CourseDetails />} />
     </Routes>
   );
-};
-
-export default AppRoutes;
+}

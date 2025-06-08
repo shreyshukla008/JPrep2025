@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import {auth, provider, signInWithPopup} from '../firebase-config';
+import LandingPage from '../pages/Landing';
 
 function GoogleLogin() {
 
@@ -51,6 +52,8 @@ function GoogleLogin() {
       <button onClick={handleLogin}>
         Login with Google
       </button>
+
+      <LandingPage />
         </div>
     )
 }
