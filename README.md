@@ -138,6 +138,10 @@ You can find the backend code for this project here:
 _MERN Stack Developer | CS Undergrad | Tech Enthusiast_  
 [LinkedIn](https://www.linkedin.com/in/shreyshukla) • [GitHub](https://github.com/shreyshukla)
 
+**Kavya Gauri**  
+_Frontend Developer • Graph Enthusiast • CS Student_  
+[GitHub](https://github.com/kavoiii) • [LinkedIn](https://linkedin.com/in/shreyshukla)
+
 ---
 
 ## 📃 License
